@@ -1,58 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Kitchen OS - Sistema de Planejamento Inteligente de Produção
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Kitchen OS é um sistema de gerenciamento de produção para cozinhas industriais e restaurantes. Ele automatiza o cálculo de ingredientes, monitora o estoque e sequencia a produção para minimizar o desperdício e otimizar o tempo.
 
-## About Laravel
+## 🚀 Como Executar o Projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Pré-requisitos
+- PHP 8.3+
+- Composer
+- Node.js & NPM
+- SQLite (ou outro driver de banco de dados suportado pelo Laravel)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Instalação
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1.  **Clone o repositório e acesse a pasta:**
+    ```bash
+    cd restaurante-cozinha-inteligente
+    ```
 
-## Learning Laravel
+2.  **Instale as dependências do PHP:**
+    ```bash
+    composer install
+    ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3.  **Instale as dependências do Frontend:**
+    ```bash
+    npm install
+    ```
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4.  **Configure o ambiente:**
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+5.  **Prepare o banco de dados e dados de demonstração:**
+    ```bash
+    # Cria o arquivo SQLite se necessário (config padrão)
+    touch database/database.sqlite
+    
+    # Roda as migrações e popula com dados fakes/demo
+    php artisan migrate:refresh --seed
+    ```
 
-## Agentic Development
+### Execução em Desenvolvimento
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Para rodar o projeto localmente, você precisa de dois terminais abertos:
 
+**Terminal 1 (Backend):**
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**Terminal 2 (Frontend/Vite):**
+```bash
+npm run dev
+```
 
-## Contributing
+O sistema estará disponível em [http://localhost:8000](http://localhost:8000).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🛠️ Tecnologias Utilizadas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   **Backend**: Laravel 13 (Service Pattern, Eloquent, API Resources)
+-   **Frontend**: React 18, Vite, Framer Motion, Tailwind CSS 4, Lucide Icons
+-   **Banco de Dados**: SQLite (padrão desenvolvimento)
+-   **Testes**: PHPUnit (Laravel Feature Tests)
 
-## Security Vulnerabilities
+## 📋 Funcionalidades Principais
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   **Dashboard Inteligente**: Visualização em tempo real de pedidos ativos.
+-   **Cálculo de Ingredientes**: Agrega automaticamente todos os ingredientes necessários para a produção atual.
+-   **Lista de Compras Automática**: Compara a necessidade com o estoque atual e gera uma lista de compras urgente.
+-   **Gestão de Estoque**: Monitoramento de níveis críticos e estoque mínimo.
+-   **Estimativa de Tempo**: Cálculo do tempo total de preparo baseado nas receitas sincronizadas.
 
-## License
+## 🧪 Execução de Testes
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+O projeto utiliza o PHPUnit para garantir a integridade da lógica de produção e dos endpoints da API. Para rodar a suite completa:
+
+```bash
+php artisan test
+```
+
+Este comando executará os testes de Unit e Feature, incluindo os novos testes de API e do `ProductionService`.
+
+---
+
+## 📦 Estrutura do Projeto
+
+-   `app/Services/ProductionService.php`: Lógica central de planejamento.
+-   `app/Http/Controllers/Api/`: Controllers REST para Pedidos, Inventário e Planejamento.
+-   `resources/js/`: Aplicação React com sistema de design premium.
+-   `database/factories/`: Factories para geração de dados massivos de teste.
